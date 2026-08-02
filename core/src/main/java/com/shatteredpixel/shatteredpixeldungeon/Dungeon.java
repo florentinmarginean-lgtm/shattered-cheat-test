@@ -488,18 +488,36 @@ public class Dungeon {
 		if (!rewardedFloors.contains(floorKey)) {
 			rewardedFloors.add(floorKey);
 
+			// Add 20 Healing Potions
 			com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing hp = new com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing();
 			hp.quantity(20);
 			hp.identify();
-			if (!hero.belongings.backpack.grab(hp)) {
-				level.drop(hp, hero.pos);
+			boolean hpStacked = false;
+			for (Item item : hero.belongings.backpack.items) {
+				if (item instanceof com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing) {
+					item.quantity(item.quantity() + 20);
+					hpStacked = true;
+					break;
+				}
+			}
+			if (!hpStacked) {
+				hero.belongings.backpack.items.add(hp);
 			}
 
+			// Add 20 Upgrade Scrolls
 			com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade soU = new com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade();
 			soU.quantity(20);
 			soU.identify();
-			if (!hero.belongings.backpack.grab(soU)) {
-				level.drop(soU, hero.pos);
+			boolean soUStacked = false;
+			for (Item item : hero.belongings.backpack.items) {
+				if (item instanceof com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade) {
+					item.quantity(item.quantity() + 20);
+					soUStacked = true;
+					break;
+				}
+			}
+			if (!soUStacked) {
+				hero.belongings.backpack.items.add(soU);
 			}
 		}
 
