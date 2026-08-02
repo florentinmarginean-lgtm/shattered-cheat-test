@@ -491,14 +491,14 @@ public class Dungeon {
 			com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing hp = new com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing();
 			hp.quantity(20);
 			hp.identify();
-			if (!hero.belongings.collect(hp)) {
+			if (!hp.collect()) {
 				level.drop(hp, hero.pos);
 			}
 
 			com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade soU = new com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade();
 			soU.quantity(20);
 			soU.identify();
-			if (!hero.belongings.collect(soU)) {
+			if (!soU.collect()) {
 				level.drop(soU, hero.pos);
 			}
 		}
