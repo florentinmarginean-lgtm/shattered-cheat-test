@@ -99,6 +99,9 @@ import java.util.TimeZone;
 
 public class Dungeon {
 
+	// Tracks floors where cheat items have already been granted
+	public static HashSet<Integer> rewardedFloors = new HashSet<>();
+
 	//enum of items which have limited spawns, records how many have spawned
 	//could all be their own separate numbers, but this allows iterating, much nicer for bundling/initializing.
 	public static enum LimitedDrops {
@@ -263,6 +266,7 @@ public class Dungeon {
 		depth = 1;
 		branch = 0;
 		generatedLevels.clear();
+		rewardedFloors.clear();
 
 		gold = 0;
 		energy = 0;
@@ -480,18 +484,21 @@ public class Dungeon {
 		Dungeon.level = level;
 		hero.pos = pos;
 
-		if (level.firstVisit) {
+		int floorKey = depth + 1000 * branch;
+		if (!rewardedFloors.contains(floorKey)) {
+			rewardedFloors.add(floorKey);
+
 			com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing hp = new com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing();
 			hp.quantity(20);
 			hp.identify();
-			if (!hero.belongings.backpack.collect(hp)) {
+			if (!hero.collect(hp)) {
 				level.drop(hp, hero.pos);
 			}
 
 			com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade soU = new com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade();
 			soU.quantity(20);
 			soU.identify();
-			if (!hero.belongings.backpack.collect(soU)) {
+			if (!hero.collect(soU)) {
 				level.drop(soU, hero.pos);
 			}
 		}
