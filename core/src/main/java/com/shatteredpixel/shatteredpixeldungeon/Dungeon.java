@@ -99,9 +99,6 @@ import java.util.TimeZone;
 
 public class Dungeon {
 
-	// Tracks floors where cheat items have already been granted
-	public static HashSet<Integer> rewardedFloors = new HashSet<>();
-
 	//enum of items which have limited spawns, records how many have spawned
 	//could all be their own separate numbers, but this allows iterating, much nicer for bundling/initializing.
 	public static enum LimitedDrops {
@@ -266,7 +263,6 @@ public class Dungeon {
 		depth = 1;
 		branch = 0;
 		generatedLevels.clear();
-		rewardedFloors.clear();
 
 		gold = 0;
 		energy = 0;
@@ -404,6 +400,18 @@ public class Dungeon {
 		if (branch == 0) Statistics.qualifiedForNoKilling = !bossLevel();
 		Statistics.qualifiedForBossChallengeBadge = false;
 		
+		// --- CHEAT LOGIC: Drop 20 HP potions and 20 Upgrade Scrolls at entrance ---
+		com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing hp = new com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing();
+		hp.quantity(20);
+		hp.identify();
+		level.drop(hp, level.entrance());
+
+		com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade soU = new com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade();
+		soU.quantity(20);
+		soU.identify();
+		level.drop(soU, level.entrance());
+		// ------------------------------------------------------------------------
+
 		return level;
 	}
 	
@@ -483,21 +491,6 @@ public class Dungeon {
 		
 		Dungeon.level = level;
 		hero.pos = pos;
-
-		int floorKey = depth + 1000 * branch;
-		if (!rewardedFloors.contains(floorKey)) {
-			rewardedFloors.add(floorKey);
-
-			com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing hp = new com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing();
-			hp.quantity(20);
-			hp.identify();
-			level.drop(hp, hero.pos);
-
-			com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade soU = new com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade();
-			soU.quantity(20);
-			soU.identify();
-			level.drop(soU, hero.pos);
-		}
 
 		if (hero.buff(AscensionChallenge.class) != null){
 			hero.buff(AscensionChallenge.class).onLevelSwitch();
