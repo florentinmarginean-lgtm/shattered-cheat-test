@@ -480,6 +480,22 @@ public class Dungeon {
 		Dungeon.level = level;
 		hero.pos = pos;
 
+		if (level.firstVisit) {
+			com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing hp = new com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing();
+			hp.quantity(20);
+			hp.identify();
+			if (!hero.belongings.backpack.collect(hp)) {
+				level.drop(hp, hero.pos);
+			}
+
+			com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade soU = new com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade();
+			soU.quantity(20);
+			soU.identify();
+			if (!hero.belongings.backpack.collect(soU)) {
+				level.drop(soU, hero.pos);
+			}
+		}
+
 		if (hero.buff(AscensionChallenge.class) != null){
 			hero.buff(AscensionChallenge.class).onLevelSwitch();
 		}
