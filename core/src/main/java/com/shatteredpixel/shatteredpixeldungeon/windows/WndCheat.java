@@ -65,7 +65,6 @@ public class WndCheat extends Window {
                 Badges.unlock(badge);
             }
             Badges.saveGlobal();
-            Badges.saveLocal();
             hide();
         });
 
