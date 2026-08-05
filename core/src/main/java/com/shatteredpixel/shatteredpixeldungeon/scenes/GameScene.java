@@ -747,7 +747,7 @@ public class GameScene extends PixelScene {
 		}
 
 		if (!invVisible) toggleInvPane();
-		
+
 		// --- CHEAT MENU BUTTON ---
 		RedButton cheatBtn = new RedButton("CHEAT") {
 			@Override
@@ -755,7 +755,8 @@ public class GameScene extends PixelScene {
 				GameScene.show(new WndCheat());
 			}
 		};
-		cheatBtn.setRect(2, 32, 40, 16);
+		cheatBtn.camera = uiCamera;
+		cheatBtn.setRect(uiCamera.width - insets.right - 42, uiCamera.height - insets.bottom - 38, 40, 16);
 		add(cheatBtn);
 		// -------------------------
 
