@@ -402,12 +402,12 @@ public class Dungeon {
 		
 		// --- CHEAT LOGIC: Drop 20 HP potions and 20 Upgrade Scrolls at entrance ---
 		com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing hp = new com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing();
-		hp.quantity(20);
+		hp.quantity(1);
 		hp.identify();
 		level.drop(hp, level.entrance());
 
 		com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade soU = new com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade();
-		soU.quantity(20);
+		soU.quantity(1);
 		soU.identify();
 		level.drop(soU, level.entrance());
 		// ------------------------------------------------------------------------
