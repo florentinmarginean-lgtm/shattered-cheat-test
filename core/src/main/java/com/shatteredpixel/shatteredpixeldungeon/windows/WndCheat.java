@@ -1,6 +1,6 @@
-
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -12,7 +12,7 @@ import com.watabou.noosa.Game;
 
 public class WndCheat extends Window {
 
-    private static final int WIDTH = 130;
+    private static final int WIDTH = 140;
     private static final int BTN_HEIGHT = 18;
 
     public WndCheat() {
@@ -56,6 +56,16 @@ public class WndCheat extends Window {
             // Identify backpack inventory
             Dungeon.hero.belongings.identify();
 
+            hide();
+        });
+
+        // Button: Unlock All Badges & Challenges Permanently
+        y += addButton("Unlock All Badges", y, () -> {
+            for (Badges.Badge badge : Badges.Badge.values()) {
+                Badges.unlock(badge);
+            }
+            Badges.saveGlobal();
+            Badges.saveLocal();
             hide();
         });
 
