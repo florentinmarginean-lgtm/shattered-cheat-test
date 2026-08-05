@@ -756,8 +756,8 @@ public class GameScene extends PixelScene {
 			}
 		};
 		cheatBtn.camera = uiCamera;
-		cheatBtn.setRect(uiCamera.width - insets.right - 42, uiCamera.height - insets.bottom - 38, 40, 16);
-		add(cheatBtn);
+		cheatBtn.setRect(menu.left() - 44, menu.top() + 2, 40, 16);
+		addToFront(cheatBtn);
 		// -------------------------
 
 		fadeIn();
