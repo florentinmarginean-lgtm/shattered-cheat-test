@@ -100,6 +100,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.InventoryPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.LootIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.MenuPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ResumeIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RightClickMenu;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
@@ -111,6 +112,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Toolbar;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndCheat;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGame;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoCell;
@@ -745,6 +747,18 @@ public class GameScene extends PixelScene {
 		}
 
 		if (!invVisible) toggleInvPane();
+		
+		// --- CHEAT MENU BUTTON ---
+		RedButton cheatBtn = new RedButton("CHEAT") {
+			@Override
+			protected void onClick() {
+				GameScene.show(new WndCheat());
+			}
+		};
+		cheatBtn.setRect(2, 32, 40, 16);
+		add(cheatBtn);
+		// -------------------------
+
 		fadeIn();
 
 		//re-show WndResurrect if needed
