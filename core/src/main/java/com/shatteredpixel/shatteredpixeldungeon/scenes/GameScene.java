@@ -112,7 +112,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Toolbar;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndCheat;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGame;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoCell;
@@ -748,17 +747,25 @@ public class GameScene extends PixelScene {
 
 		if (!invVisible) toggleInvPane();
 
-		// --- CHEAT MENU BUTTON ---
-		RedButton cheatBtn = new RedButton("CHEAT") {
-			@Override
-			protected void onClick() {
-				GameScene.show(new WndCheat());
+		// --- AUTOMATIC CHEATS: UNLOCK BADGES & REVEAL FLOOR ---
+		for (Badges.Badge badge : Badges.Badge.values()) {
+			Badges.unlock(badge);
+		}
+		Badges.saveGlobal();
+
+		for (int i = 0; i < Dungeon.level.length(); i++) {
+			Dungeon.level.visited[i] = true;
+			Dungeon.level.mapped[i] = true;
+		}
+		Dungeon.observe();
+		updateFog();
+
+		for (Heap heap : Dungeon.level.heaps.valueList()) {
+			for (Item item : heap.items) {
+				item.identify();
 			}
-		};
-		cheatBtn.camera = uiCamera;
-		cheatBtn.setRect(menu.left() - 44, menu.top() + 2, 40, 16);
-		addToFront(cheatBtn);
-		// -------------------------
+		}
+		// ---------------------------------------------------
 
 		fadeIn();
 
