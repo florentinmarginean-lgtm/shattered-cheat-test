@@ -1012,7 +1012,7 @@ public abstract class Level implements Bundlable {
 
 		}
 		// --- SPAWN +20 WAND WITH RETURN CRYSTAL ---
-		if (item != null && item.getClass().getSimpleName().contains("ReturnCrystal")) {
+		if (item != null && item.getClass().getSimpleName().contains("EscapeCrystal")) {
 			com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration wand = 
 				new com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration();
 			wand.upgrade(20);
