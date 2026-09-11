@@ -30,6 +30,7 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.PlatformSupport;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 
 public class ShatteredPixelDungeon extends Game {
 
